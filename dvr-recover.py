@@ -1072,11 +1072,11 @@ class Main(object):
             print()
 
         if not self.export_dir:
-            print "Specify directory for exported files (dvr-recover.py setup export_dir DIR) and rerun"
+            print("Specify directory for exported files (dvr-recover.py setup export_dir DIR) and rerun")
             sys.exit(1)
 
         if not os.path.isdir(self.export_dir):
-            print "Export directory does not exist, creating.."
+            print("Export directory does not exist, creating..")
             os.makedirs(self.export_dir)
 
         if len(sys.argv) < 3:
