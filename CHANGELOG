@@ -1,3 +1,11 @@
+2023-09-09  prpr19xx  <prpr19xx@gmail.com>
+
+  Version 0.9:
+  * Merge pull requests from upstream.
+  * Fix Python 3 compatibility.
+  * Fix typos and inconsistencies.
+
+
 2011-03-14  Stefan Haller  <haliner@googlemail.com>
 
   Version 0.8:

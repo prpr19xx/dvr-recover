@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2010 Stefan Haller <haliner@googlemail.com>
+# Copyright (C) 2010, 2011 Stefan Haller <haliner@googlemail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,13 +18,13 @@
 
 
 '''
-dvr-recover - extract MPEG2 files of digital video recorder hdd
-===============================================================
+dvr-recover - extract MPEG2 files from digital video recorder hdd
+=================================================================
 
-Version: 0.6
+Version: 0.9
 
 
-Copyright (C) 2010 Stefan Haller <haliner@googlemail.com>
+Copyright (C) 2010, 2011 Stefan Haller <haliner@googlemail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -74,7 +74,7 @@ Here is a full listing of all available settings:
   input clear            This option sets the path of the hard disk drive
   input add [filename]   file used as input. You can either use a copy of the
   input del [filename]   block device (created with something like dd or so) or
-                         the block device directly (required root privileges).
+                         the block device directly (requires root privileges).
                          The file must be readable. It's possible to specify
                          multiple hdd-files by calling the add parameter
                          multiply times. The script will threat the single files
@@ -111,7 +111,7 @@ Here is a full listing of all available settings:
                          So the default value of 90,000 ticks equals one second.
 
   max_sort_gap [integer]
-                         See maxcreategap. This value is used to concatenate
+                         See max_create_gap. This value is used to concatenate
                          two chunks if the difference of the timecode is smaller
                          than this value. The default value of 90,000 ticks
                          equals one second.
@@ -126,7 +126,7 @@ Linux:
   If you want to copy the hdd (assuming the hdd is /dev/sdb) then you can use
   this dd command: (setting the blocksize to 10MB should increase performance.)
 
-    dd if=/dev/sdb if=hddfile bs=10MB
+    dd if=/dev/sdb of=hddfile bs=10MB
 
   If you want to use the hdd directly as input, use this as value for hdd-file:
   (Assuming that the hdd is /dev/sdb.)
@@ -153,7 +153,7 @@ Step 1: Export information of chunks
 Step 2: Analyze and sort chunks
   This step will analyze the stored chunk info and sort the chunks. The tools
   tries to find parts of the same recording (by analyzing the timecode
-  informationof the chunks) and bring them into the right order.
+  information of the chunks) and bring them into the right order.
 
   Parameter: sort
 
@@ -164,9 +164,9 @@ Step 3: Show chunks
 
 Step 4: Export chunks
   This step will use the conditioned chunk data and export the chunks. You can
-  either export all chunks at once or select chunks. The tool will assembly all
+  either export all chunks at once or select chunks. The tool will assemble all
   parts of the same recording into one file.
-  Use paramater "show" to get the id of the chunk you want to extract. If you
+  Use parameter "show" to get the id of the chunk you want to extract. If you
   call export without any additional parameter, all chunks will be exported.
 
   Parameter: export
@@ -185,10 +185,10 @@ setup input add [FILE]
 setup input remove [FILE]
 
 setup blocksize [INTEGER]
-setup exportdir [STRING]
-setup minchunksize [INTEGER]
-setup maxcreategap [INTEGER]
-setup maxsortgap [INTEGER]
+setup export_dir [STRING]
+setup min_chunk_size [INTEGER]
+setup max_create_gap [INTEGER]
+setup max_sort_gap [INTEGER]
 
 
 
@@ -212,9 +212,12 @@ Tested devices:
   * Panasonic DMR-EH56
   * Panasonic DMR-EH57
   * Panasonic DMR-EX77
+  * Panasonic DMR-EX80S
   * Panasonic DMR-EX85
   * Panasonic DMR-XW300
   * Panasonic DVM-E80H
+  * Pioneer DVR-433H
+  * Sony RDR-HXD870
 
 '''
 
@@ -1072,7 +1075,7 @@ class Main(object):
             print()
 
         if not self.export_dir:
-            print("Specify directory for exported files (dvr-recover.py setup export_dir DIR) and rerun")
+            print("Specify directory for exported files (dvr-recover.py setup export_dir DIR) and re-run")
             sys.exit(1)
 
         if not os.path.isdir(self.export_dir):
