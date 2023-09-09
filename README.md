@@ -50,7 +50,8 @@ Working devices:
  *  Panasonic DMR-EX80S
  *  Panasonic DMR-EX85
  *  Panasonic DMR-XW300
- *  Panasonic DVM-E80H
+ *  Panasonic DMR-E80H
+ *  Panasonic DMR-E85H
  *  Pioneer DVR-433H
  *  Sony RDR-HXD870 (possibly other RDR-HXD-8x0 will work too)
 
